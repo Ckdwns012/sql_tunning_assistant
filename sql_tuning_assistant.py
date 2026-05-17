@@ -565,11 +565,17 @@ class App(tk.Tk):
                            activebackground="#313244", activeforeground="#f9e2af",
                            font=("Consolas",9)).pack(side="left", padx=5)
 
-        # [수정] 조회 버튼 스타일을 일반 버튼과 같은 파란색 테마로 변경
+        # 조회 버튼
         self.btn_heavy = ttk.Button(row1, text="🔍 조회", command=self._run_heavy_query)
-        self.btn_heavy.pack(side="left", padx=(16, 0)) # 라디오 버튼들과 구분되도록 왼쪽에 여백 추가
+        self.btn_heavy.pack(side="left", padx=(16, 0))
 
-        # [수정] 기존 복사 버튼이 있던 row2를 제거하고, 안내 메시지만 row1 우측 끝에 정렬
+        # 🚀 [수정/추가] 에러가 나던 상태 표시 라벨을 여기에 생성합니다.
+        # ttk가 아닌 오리지널 tk.Label을 써야 fg 옵션(Catppuccin 테마색)이 먹힙니다.
+        self.lbl_heavy_status = tk.Label(row1, text="", bg="#313244", fg="#a6e3a1",
+                                         font=("Consolas", 10, "bold"))
+        self.lbl_heavy_status.pack(side="left", padx=(8, 0))
+
+        # 안내 메시지만 row1 우측 끝에 정렬
         tk.Label(row1, text="※ TB_ 업무 테이블 SQL만 조회", bg="#313244", fg="#6c7086",
                  font=("Consolas",8)).pack(side="right", padx=4)
 
@@ -585,6 +591,7 @@ class App(tk.Tk):
         vsb.pack(side="right", fill="y")
         hsb.pack(side="bottom", fill="x")
         self.heavy_tree.pack(fill="both", expand=True)
+        
         # 더블클릭으로 SQL_ID 자동 입력
         self.heavy_tree.bind("<Double-1>", self._on_tree_dblclick)
 
